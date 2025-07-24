@@ -1,0 +1,366 @@
+/* Trading Signal Bot Dashboard Styles */
+
+:root {
+    --primary-color: #007bff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
+body {
+    background-color: #f5f6fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+/* Status Indicators */
+.status-online {
+    color: var(--success-color) !important;
+}
+
+.status-offline {
+    color: var(--danger-color) !important;
+}
+
+.status-unknown {
+    color: var(--warning-color) !important;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Signal Cards */
+.signal-card {
+    border-left: 4px solid;
+    margin-bottom: 1rem;
+}
+
+.signal-card.buy {
+    border-left-color: var(--success-color);
+}
+
+.signal-card.sell {
+    border-left-color: var(--danger-color);
+}
+
+.signal-card.hold {
+    border-left-color: var(--warning-color);
+}
+
+.signal-badge {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.signal-badge.buy {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.signal-badge.sell {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.signal-badge.hold {
+    background-color: var(--warning-color);
+    color: #212529;
+}
+
+/* Confidence Bars */
+.confidence-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    overflow: hidden;
+}
+
+.confidence-progress {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.confidence-high {
+    background-color: var(--success-color);
+}
+
+.confidence-medium {
+    background-color: var(--warning-color);
+}
+
+.confidence-low {
+    background-color: var(--danger-color);
+}
+
+/* Tables */
+.table {
+    background-color: white;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,123,255,.075);
+}
+
+/* History Items */
+.history-item {
+    border-left: 3px solid #e9ecef;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    border-left-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.history-item.buy {
+    border-left-color: var(--success-color);
+}
+
+.history-item.sell {
+    border-left-color: var(--danger-color);
+}
+
+.history-item.hold {
+    border-left-color: var(--warning-color);
+}
+
+/* Error Items */
+.error-item {
+    background-color: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-item .error-message {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+.error-item .error-time {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-outline-light:hover {
+    transform: none;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+/* Loading Animations */
+.loading-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn {
+        margin-bottom: 0.5rem;
+    }
+    
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .text-end {
+        text-align: left !important;
+    }
+}
+
+/* Configuration Styles */
+.config-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.config-item:last-child {
+    border-bottom: none;
+}
+
+.config-label {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.config-value {
+    color: #666;
+    font-family: 'Courier New', monospace;
+}
+
+/* Statistics Charts */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 2rem;
+}
+
+/* Price Display */
+.price-display {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.price-change-positive {
+    color: var(--success-color);
+}
+
+.price-change-negative {
+    color: var(--danger-color);
+}
+
+/* Individual Signal Details */
+.individual-signals {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.individual-signal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+}
+
+.signal-source {
+    font-weight: 500;
+}
+
+.signal-confidence {
+    color: #666;
+}
+
+/* Scrollable containers */
+.scrollable {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Utilities */
+.text-monospace {
+    font-family: 'Courier New', monospace !important;
+}
+
+.fs-7 {
+    font-size: 0.875rem !important;
+}
+
+.fs-8 {
+    font-size: 0.75rem !important;
+}
+
+.border-start-success {
+    border-left: 3px solid var(--success-color) !important;
+}
+
+.border-start-danger {
+    border-left: 3px solid var(--danger-color) !important;
+}
+
+.border-start-warning {
+    border-left: 3px solid var(--warning-color) !important;
+}
