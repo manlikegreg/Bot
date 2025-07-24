@@ -1,0 +1,75 @@
+You are an expert quantitative trading analyst and Python developer.
+
+Your task is to build a **pure Python breakout scalping signal bot** (no GPT or MT5) that:
+
+1. Runs every 10 minutes and analyzes the following top 5 assets:
+   - BTC/USD  
+   - ETH/USD  
+   - XAU/USD (Gold)  
+   - EUR/USD  
+   - XRP/USD  
+
+2. For each asset, fetch live data from **multiple trusted APIs** like:
+   - CoinGecko, CoinMarketCap (for crypto prices)
+   - Alpha Vantage, TwelveData, or ForexAPI (for Gold, EUR/USD, etc.)
+   - TradingView (if possible, via unofficial or scraping for public indicators)
+   - Sentiment or volume APIs (if available)
+   - Optionally, calculate your own indicators like:
+     - RSI (14)
+     - MACD
+     - Bollinger Bands
+     - 50/200 MA crossover
+     - Volume spikes
+
+3. From each data source or calculated indicator:
+   - Generate a **BUY**, **SELL**, or **HOLD** signal
+   - Assign each a confidence score from 0% to 100%
+
+4. For each asset:
+   - Average all signals’ confidence scores
+   - Decide final consensus signal:
+     * If average confidence ≥80% and mostly BUY → signal is **BUY**
+     * If average confidence ≥80% and mostly SELL → signal is **SELL**
+     * Else → no signal
+
+5. Send signal alerts to Telegram via:
+   - Bot Token: `7260596079:AAHBHvXe-mskrRGCBGDNCeB1CeLAvM3dhQY`
+   - Chat ID: `6534876476`
+
+6. Message format should be:
+
+📊 Strong Signal Alert  
+Pair: ETH/USD  
+Signal: BUY  
+Entry: $3,150.00  
+SL: $3,120.00  
+TP: $3,210.00  
+Timeframe: 15min to 1hr  
+Confidence: 82%  
+Reason: RSI bounce + MACD crossover + strong volume spike.
+
+7. The bot must:
+   - Run every 10 minutes (using `schedule` or `asyncio`)
+   - Include error handling (API failures, timeouts, etc.)
+   - Log data and alerts sent
+   - Be optimized for running on a VPS or Android Linux terminal
+
+---
+
+✅ This bot does not use OpenAI or GPT.  
+✅ It does not place real trades.  
+✅ It’s focused on **generating strong, accurate scalping signals** based on real data and logic.  
+✅ Fully Python-based.
+
+---
+
+Would you like me to now **build the code step-by-step** for this setup?
+
+It would include:
+- Real-time data fetchers (CoinGecko, Alpha Vantage, etc.)
+- Technical indicator calculations
+- Confidence scoring + signal aggregator
+- Telegram alert system
+- Scheduler (every 10 minutes)
+
+Let me know if you're ready to begin!
