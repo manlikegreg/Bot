@@ -4,3 +4,9 @@ requests
 schedule
 logging 
 aiohttp
+numpy
+pandas
+ta-lib
+ta
+python-telegram-bot
+yfinance
