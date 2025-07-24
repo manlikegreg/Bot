@@ -3,10 +3,15 @@ from __future__ import annotations
 
 import time
 from datetime import datetime
+from typing import List, Optional
 
 import schedule
 
-from config import SCHEDULE_INTERVAL_MINUTES
+import pandas as pd
+
+from config import ASSETS, SCHEDULE_INTERVAL_MINUTES
+from data_sources.yfinance_source import fetch_ohlcv
+from signals import compute_consensus
 from logger import get_logger
 from telegram_alert import TelegramAlerter
 
@@ -17,6 +22,37 @@ alerter = TelegramAlerter()
 # ---------------------------------------------------------------------------
 # Core bot execution logic (placeholder for now)
 # ---------------------------------------------------------------------------
+
+def format_alert(consensus: dict, price: float) -> str:  # noqa: D401
+    """Format the Telegram alert text according to spec."""
+    pair = consensus["pair"]
+    signal = consensus["signal"]
+    confidence = consensus["confidence"]
+
+    # Basic risk parameters (2% stop / take-profit)
+    if signal == "BUY":
+        sl = price * 0.98
+        tp = price * 1.02
+    else:  # SELL
+        sl = price * 1.02
+        tp = price * 0.98
+
+    # Concatenate reasons
+    reasons = ", ".join(s["reason"] for s in consensus["details"])
+
+    msg = (
+        "📊 Strong Signal Alert\n"
+        f"Pair: {pair}\n"
+        f"Signal: {signal}\n"
+        f"Entry: ${price:,.2f}\n"
+        f"SL: ${sl:,.2f}\n"
+        f"TP: ${tp:,.2f}\n"
+        "Timeframe: 15min to 1hr\n"
+        f"Confidence: {confidence}%\n"
+        f"Reason: {reasons}."
+    )
+    return msg
+
 
 def run_bot() -> None:
     """Run the entire analysis pipeline once and send signals as alerts.
@@ -29,9 +65,19 @@ def run_bot() -> None:
     """
     logger.info("Bot run started at %s", datetime.utcnow().isoformat())
 
-    # TODO: Implement full data processing and signal generation pipeline.
-    # For now, just send a heartbeat message every run to verify scheduler.
-    alerter.send_message("✅ Breakout bot heartbeat: running on schedule.")
+    for pair in ASSETS:
+        df: Optional[pd.DataFrame] = fetch_ohlcv(pair)
+        if df is None:
+            continue
+
+        consensus = compute_consensus(pair, df)
+        if not consensus:
+            logger.info("No strong consensus for %s", pair)
+            continue
+
+        price = df["close"].iloc[-1]
+        alert_text = format_alert(consensus, price)
+        alerter.send_message(alert_text)
 
     logger.info("Bot run completed")
 

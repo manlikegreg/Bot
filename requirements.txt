@@ -5,3 +5,5 @@ schedule>=1.2.1
 python-telegram-bot>=20.6
 ta>=0.10.2
 Flask>=2.3.3
+yfinance>=0.2.34
+pandas-ta>=0.3.14
