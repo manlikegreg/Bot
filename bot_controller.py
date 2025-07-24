@@ -11,6 +11,7 @@ import schedule
 from config import SCHEDULE_INTERVAL_MINUTES
 from logger import get_logger
 from main import run_bot  # reusing existing run function (no side effects)
+from performance import metrics
 
 logger = get_logger()
 
@@ -38,6 +39,7 @@ class BotController:
             return False
 
         logger.info("Starting bot controller …")
+        metrics.bot_started()
         schedule.clear()
         schedule.every(SCHEDULE_INTERVAL_MINUTES).minutes.do(run_bot)
 
@@ -59,6 +61,7 @@ class BotController:
             return False
 
         logger.info("Stopping bot controller …")
+        metrics.bot_stopped()
         self._stop_event.set()
         if self._thread:
             self._thread.join(timeout=5)

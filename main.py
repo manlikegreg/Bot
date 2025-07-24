@@ -14,6 +14,7 @@ from data_sources.yfinance_source import fetch_ohlcv
 from signals import compute_consensus
 from logger import get_logger
 from telegram_alert import TelegramAlerter
+from performance import metrics
 
 logger = get_logger()
 alerter = TelegramAlerter()
@@ -65,6 +66,7 @@ def run_bot() -> None:
     """
     logger.info("Bot run started at %s", datetime.utcnow().isoformat())
 
+    consensus_list = []
     for pair in ASSETS:
         df: Optional[pd.DataFrame] = fetch_ohlcv(pair)
         if df is None:
@@ -78,6 +80,10 @@ def run_bot() -> None:
         price = df["close"].iloc[-1]
         alert_text = format_alert(consensus, price)
         alerter.send_message(alert_text)
+        consensus_list.append(consensus)
+
+    # Record metrics after processing all assets
+    metrics.record_run(consensus_list)
 
     logger.info("Bot run completed")
 
